@@ -1,7 +1,10 @@
+#include "PhaseShiftStructuredLight3DScanner.h"
+
+
 void readPatternImages(unsigned int pattern_type)
 {
 
-    projected_image_set_fringe=new IplImage*[number_of_patterns_fringe];
+    projectedFringePatternsVertical = new IplImage * [nFringePatterns];
 
 //Vertical.
     if(pattern_type==0)
@@ -13,11 +16,8 @@ void readPatternImages(unsigned int pattern_type)
         // Vertical fringe patterns...
         for(int i=0; i<number_of_patterns_fringe; i++)
         {
-
             sprintf(filename,"Generated_patterns/Fringe_patterns/Vertical/Pattern_%d.bmp",i);
             projected_image_set_fringe[i]=cvLoadImage(filename,CV_LOAD_IMAGE_GRAYSCALE);
-
-
         }
 
         //Vertical binary coded patterns...
