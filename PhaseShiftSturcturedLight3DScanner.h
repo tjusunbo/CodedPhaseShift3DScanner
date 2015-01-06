@@ -56,7 +56,7 @@ class PhaseShiftStructuredLight3DScanner
 		map<cameraPixel, projectorPixel>cameraProjectorMap;		
 
 		float ***pointCloud;
-
+	public:
 
 		// member functions
 
