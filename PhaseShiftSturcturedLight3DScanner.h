@@ -70,7 +70,7 @@ class PhaseShiftStructuredLight3DScanner
 		void triangulate();
 		void savePointCloud();
 
-		// member functions resposible for adapting 3D scanner configuration
+		// member functions responsible for adapting 3D scanner configuration
 		void estimateRadiometricParameters(); // sets projectorGamma, projectorBrightness, cameraBrightness, cameraGamma
 
 };

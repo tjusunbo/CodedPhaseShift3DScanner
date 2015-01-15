@@ -1,64 +1,16 @@
 // executes 3D scanning pipeline
+#include "PhaseShiftSturcturedLight3DScanner.h"
+#include "ReadScannerConfiguration.h"
+#include "SystemCalibration.h"
+#include "GeneratePatterns.h"
+#include "ProjectAndCapturePatterns.h"
+#include "ComputeWrappedPhase.h"
+#include "ComputeUnwrapPhase.h"
+#include "ComputeCorrespondence.h"
+#include "Triangulate.h"
+#include "SavePointCloud.h"
 
 
-void readScannerConfiguration()
-{
-nFringePatterns = ;
-nGrayCodedPatternsVertical = ;
-nGrayCodedPatternsHorizontal = ;
-nGrayCodesVertical = ;
-nGrayCodesHorizontal = ;
-fringeWidthVertical = ;
-fringeWidthHorizontal = ;
-triangulationMethod = ;
-projectorImageWidth = ;
-projectorImageHeight = ;
-cameraImageWidth = ;
-cameraImageHeight = ;
-
-projectorGamma = ;
-projectorBrightness = ;
-cameraGamma = ;
-cameraBrightness = ;
-projectorFocus = ;
-cameraFocus = ;
-
-}
-
-
-void systemCalibration()
-{
-}
-
-void generatePatterns()
-{
-}
-
-
-void projectAndCapturePatterns()
-{
-}
-
-void computeWrappedPhase()
-{
-}
-
-
-void computeUnwrappedPhase()
-{
-}
-
-void computeProjectorCameraCorrespondence()
-{
-}
-
-void triangulate()
-{
-}
-
-void savePointCloud()
-{
-}
 
 void scanObject()
 {
