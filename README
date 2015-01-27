@@ -1,7 +1,8 @@
-This source code contains implementation of a 3D-scanner based on structured light approach. Specifically, it implements the sinusoidal fringe pattern based 3D scanning approach, originally proposed by Song Zhang in 2006.
+This source code contains implementation of a 3D-scanner based on structured light approach. Specifically, it implements the sinusoidal fringe pattern based 3D scanning approach, originally proposed by Song Zhang in 2006. Code is currently in development stage(may not compile).
 
 
 =======================Function-wise description===============================  
+
 readScannerConfiguration():
 ---------------------------
 reads following configurations specified by user:
