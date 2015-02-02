@@ -1,3 +1,15 @@
+#include "ReadScannerConfiguration.h"
+#include "SystemCalibration.h"
+#include "GeneratePatterns.h"
+#include "ProjectAndCapturePatterns.h"
+#include "ComputeWrappedPhase.h"
+#include "ComputeUnwrapPhase.h"
+#include "ComputeCorrespondence.h"
+#include "Triangulate.h"
+#include "SavePointCloud.h"
+
+
+
 #define PI (22.0/7.0)
 
 using namespace std;
