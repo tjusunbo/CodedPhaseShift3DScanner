@@ -2,17 +2,17 @@
 #include "PhaseShiftSturcturedLight3DScanner.h"
 
 
-void scanObject()
+void PhaseShiftStructuredLight3DScaner::scanObject()
 {
-	readScannerConfiguration();
-	systemCalibration();
-	generatePatterns();
-	projectAndCapturePatterns();
-	computeWrappedPhase();
-	computeUnwrappedPhase();
-	computeProjectorCameraCorrespondence();
-	triangulate();
-	savePointCloud();
+
+	systemCalibrator.calibrate();
+	patternGenerator.generate();
+	patternProjectAndCapture.projectAndCapture();
+	phaseWrapper.compute();
+	phaseUnwrapper.compute();
+	correspondeceEstimator.compute();
+	triangulator.compute();
+	pointCloudExporter.save();
 
 	return;
 }
