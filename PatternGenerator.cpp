@@ -1,6 +1,6 @@
-#include "PhaseShiftStructuredLight3DScanner.h" 
+#include "PatternGenerator.h" 
 
-#define Pi 22.0/7.0
+
 
 void allocateMemory()
 {
