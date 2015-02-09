@@ -1,3 +1,8 @@
+// File inclusions
+#include <vector>
+#include <opencv/highgui.h>
+
+// Constants
 #define Pi (22.0 / 7.0)
 
 
