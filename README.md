@@ -1,56 +1,8 @@
 # Overview
 This is C++ implementation of a 3D-scanner based on structured light approach. Specifically, it implements the sinusoidal fringe pattern based 3D scanning approach, originally proposed by Song Zhang in 2006. Code is currently in development stage(may not compile).
 
-
-## Function-wise description
-
-readScannerConfiguration():
----------------------------
-reads following configurations specified by user:
-#1.  Fringe width for horizontal and vertical patterns
-#2.  Binarization threshold for gray-coded patterns used for phase unwrapping
-#3.  Camera resolution
-#4.  Projector resolution
-#5.  Projector Gamma
-#6.  Camera exposure
-#7.  Camera Gamma
-#8.  Location of camera calibration files
-#9.  Location of projector calibration files
-#10. Number of phase shifted patterns
-#11. Location for point cloud output
-#12. Triangulation method
-
-generatePatterns():
--------------------
-generates sinusoidal and gray coded patterns as per specified configuration
-
-projectPatterns():
-------------------
-performs the pattern projection and capture loop. It proceeds only if  system is calibrated.
-
-computeWrappedPhase():
-----------------------
-computes the wrapped phase for projected sinusoidal pattern
-
-computeUnwrappedPhase():
-------------------------
-computes the unwrapped phase out of wrapped phase computed earlier with assistance from gray coded patterns
-
-computeProjectorCameraCorrespondences():
-----------------------------------------
-computes camera-projector stereo-correspondence using unwrapped phase informatioon computed earlier.
-
-triangulate():
---------------
-computes 3D coordinates of points in region of interest using calibration information and camera-projector correspondence computed earlier. Triangulation method is decided by user configuration.
-
-savePointCloud():
------------------
-Saves the computed 3D dataset in the file location specified in user configuration.
-
-systemCalibration():
---------------------
-Computes intrinsic and extrinsic calibration parameters for camera and projector. It must be called before starting pattern projection and capture.
-
-
+# Dependencies
+It has following dependencies:
+* [OpenCV](https://github.com/Itseez/opencv)
+* [Point cloud library](https://github.com/PointCloudLibrary/)
 
