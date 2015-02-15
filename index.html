@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Structured light 3D scanner by pranavkantgaur</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Structured light 3D scanner</h1>
+        <h2>C++ implementation of Coded phase shift 3D scanner</h2>
+        <a href="https://github.com/pranavkantgaur/CodedPhaseShift3DScanner" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h1>
+
+<p>This is C++ implementation of a 3D-scanner based on structured light approach. Specifically, it implements the sinusoidal fringe pattern based 3D scanning approach, originally proposed by Song Zhang in 2006. Code is currently in development stage(may not compile).</p>
+
+<h3>
+<a id="scanner-configuration-parameters" class="anchor" href="#scanner-configuration-parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scanner configuration parameters:</h3>
+
+<hr>
+
+<p>Scanner has following configuration parameters:</p>
+
+<h4>
+<a id="1--fringe-width-for-horizontal-and-vertical-patterns" class="anchor" href="#1--fringe-width-for-horizontal-and-vertical-patterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>1.  Fringe width for horizontal and vertical patterns</h4>
+
+<h4>
+<a id="2--binarization-threshold-for-gray-coded-patterns-used-for-phase-unwrapping" class="anchor" href="#2--binarization-threshold-for-gray-coded-patterns-used-for-phase-unwrapping" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.  Binarization threshold for gray-coded patterns used for phase unwrapping</h4>
+
+<h4>
+<a id="3--camera-resolution" class="anchor" href="#3--camera-resolution" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.  Camera resolution</h4>
+
+<h4>
+<a id="4--projector-resolution" class="anchor" href="#4--projector-resolution" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.  Projector resolution</h4>
+
+<h4>
+<a id="5--projector-gamma" class="anchor" href="#5--projector-gamma" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.  Projector Gamma</h4>
+
+<h4>
+<a id="6--camera-exposure" class="anchor" href="#6--camera-exposure" aria-hidden="true"><span class="octicon octicon-link"></span></a>6.  Camera exposure</h4>
+
+<h4>
+<a id="7--camera-gamma" class="anchor" href="#7--camera-gamma" aria-hidden="true"><span class="octicon octicon-link"></span></a>7.  Camera Gamma</h4>
+
+<h4>
+<a id="8--location-of-camera-calibration-files" class="anchor" href="#8--location-of-camera-calibration-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>8.  Location of camera calibration files</h4>
+
+<h4>
+<a id="9--location-of-projector-calibration-files" class="anchor" href="#9--location-of-projector-calibration-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>9.  Location of projector calibration files</h4>
+
+<h4>
+<a id="10-number-of-phase-shifted-patterns" class="anchor" href="#10-number-of-phase-shifted-patterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>10. Number of phase shifted patterns</h4>
+
+<h4>
+<a id="11-location-for-point-cloud-output" class="anchor" href="#11-location-for-point-cloud-output" aria-hidden="true"><span class="octicon octicon-link"></span></a>11. Location for point cloud output</h4>
+
+<h4>
+<a id="12-triangulation-method" class="anchor" href="#12-triangulation-method" aria-hidden="true"><span class="octicon octicon-link"></span></a>12. Triangulation method</h4>
+
+<h2>
+<a id="function-wise-description" class="anchor" href="#function-wise-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Function-wise description</h2>
+
+<h3>
+<a id="generatepatterns" class="anchor" href="#generatepatterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>generatePatterns():</h3>
+
+<hr>
+
+<p>Generates sinusoidal and gray coded patterns as per specified configuration</p>
+
+<h3>
+<a id="projectpatterns" class="anchor" href="#projectpatterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>projectPatterns():</h3>
+
+<hr>
+
+<p>Performs the pattern projection and capture loop. It proceeds only if  system is calibrated.</p>
+
+<h3>
+<a id="computewrappedphase" class="anchor" href="#computewrappedphase" aria-hidden="true"><span class="octicon octicon-link"></span></a>computeWrappedPhase():</h3>
+
+<hr>
+
+<p>Computes the wrapped phase for projected sinusoidal pattern</p>
+
+<h3>
+<a id="computeunwrappedphase" class="anchor" href="#computeunwrappedphase" aria-hidden="true"><span class="octicon octicon-link"></span></a>computeUnwrappedPhase():</h3>
+
+<hr>
+
+<p>Computes the unwrapped phase out of wrapped phase computed earlier with assistance from gray coded patterns</p>
+
+<h3>
+<a id="computeprojectorcameracorrespondences" class="anchor" href="#computeprojectorcameracorrespondences" aria-hidden="true"><span class="octicon octicon-link"></span></a>computeProjectorCameraCorrespondences():</h3>
+
+<hr>
+
+<p>Computes camera-projector stereo-correspondence using unwrapped phase informatioon computed earlier.</p>
+
+<h3>
+<a id="triangulate" class="anchor" href="#triangulate" aria-hidden="true"><span class="octicon octicon-link"></span></a>triangulate():</h3>
+
+<hr>
+
+<p>Computes 3D coordinates of points in region of interest using calibration information and camera-projector correspondence computed earlier. Triangulation method is decided by user configuration.</p>
+
+<h3>
+<a id="savepointcloud" class="anchor" href="#savepointcloud" aria-hidden="true"><span class="octicon octicon-link"></span></a>savePointCloud():</h3>
+
+<hr>
+
+<p>Saves the computed 3D dataset in the file location specified in user configuration.</p>
+
+<h3>
+<a id="systemcalibration" class="anchor" href="#systemcalibration" aria-hidden="true"><span class="octicon octicon-link"></span></a>systemCalibration():</h3>
+
+<hr>
+
+<p>Computes intrinsic and extrinsic calibration parameters for camera and projector. It must be called before starting pattern projection and capture.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/pranavkantgaur/CodedPhaseShift3DScanner/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/pranavkantgaur/CodedPhaseShift3DScanner/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/pranavkantgaur/CodedPhaseShift3DScanner"></a> is maintained by <a href="https://github.com/pranavkantgaur">pranavkantgaur</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
