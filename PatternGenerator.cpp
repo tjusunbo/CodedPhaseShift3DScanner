@@ -165,7 +165,7 @@ void PatternGenenerator::generateGrayCodedPatterns()
             		if (i == 0)
                 		G[0][n][i] = B[0][n][i];
             		else
-                		G[0][n][i] = (B[0][n][i-1] != B[0][n][i]) ? 1 : 0;        	'
+                		G[0][n][i] = (B[0][n][i-1] != B[0][n][i]) ? 1 : 0;        	
 		}
     	}
 
