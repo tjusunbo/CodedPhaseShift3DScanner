@@ -1,7 +1,7 @@
-#include "PhaseShiftStructuredLight3DScanner.h"
+#include "PatternProjectAndCapture.h"
 
 
-void readPatternImages(unsigned int pattern_type)
+void initialize()
 {
 
     projectedFringePatternsVertical = new IplImage * [nFringePatterns];
@@ -177,112 +177,6 @@ void project_pattern(int pattern_type)
     }
 
 
-    /*
-
-        printf("Now projecting %s binary coded patterns...\n",pattern_name);
-
-
-        /// Project and capture binary coded patterns...
-        if(pattern_type==0)
-        {
-
-            for(int j=0; j<number_of_patterns_binary_vertical+1; j++)
-            {
-
-                cvUndistort2(projected_image_set_binary[j],temp_proj_pattern,proj_intrinsic_mat,proj_dist_vect);
-                //while(capture_next!=true)
-                //  {
-                cvScale(projected_image_set_binary[j], projected_image_set_binary[j], 2.*(proj_gain/100.), 0);
-                cvShowImage("Projector_pattern",projected_image_set_binary[j]);
-                cvCopyImage(temp_proj_pattern,projected_image_set_binary[j]);
-
-
-                //cap=cvQueryFrame(camera);
-                //mainloop(cap);
-
-                //cvScale(cap, cap, 2.*(cam_gain/100.), 0);
-
-
-                preview_and_capture();
-
-                // cvShowImage("Camera_view",cap);
-
-                //  if(cvWaitKey(30)=='c')
-                //   {
-                //  capture_next=true;
-
-                sprintf(filename,"Captured_patterns/Coded_patterns/Binary_coded/Vertical/Original/Captured_image_%d.bmp",j);
-
-                //cap=cvQueryFrame(camera);
-                // mainloop(cap);
-                cvUndistort2(cap,undist_cap,cam_intrinsic_mat,cam_dist_vect);
-                sprintf(filename,"Captured_patterns/Coded_patterns/Binary_coded/Vertical/Undistorted/Captured_image_%d.bmp",j);
-                cvSaveImage(filename,undist_cap);
-                //  }
-
-                //   else
-                //    capture_next=false;
-                // }
-
-
-                // capture_next=false;
-                printf("\nCaptured %d of %d frame!!\n",j+1,number_of_patterns_binary_vertical);
-                cvReleaseImage(&cap);
-            }
-
-        }
-
-
-        if(pattern_type==1)
-        {
-
-            for(int j=0; j<number_of_patterns_binary_horizontal+1; j++)
-            {
-
-                cvUndistort2(projected_image_set_binary[j],temp_proj_pattern,proj_intrinsic_mat,proj_dist_vect);
-                //  while(capture_next!=true)
-                //   {
-                cvScale(projected_image_set_binary[j], projected_image_set_binary[j], 2.*(proj_gain/100.), 0);
-                cvShowImage("Projector_pattern",projected_image_set_binary[j]);
-                cvCopyImage(temp_proj_pattern,projected_image_set_binary[j]);
-
-                //cap=cvQueryFrame(camera);
-                //      mainloop(cap);
-                //cvScale(cap, cap, 2.*(cam_gain/100.), 0);
-                preview_and_capture();
-                //cvShowImage("Camera_view",cap);
-
-
-
-                // if(cvWaitKey(30)=='c')
-                //    {
-                //      capture_next=true;
-
-
-
-                sprintf(filename,"Captured_patterns/Coded_patterns/Binary_coded/Horizontal/Original/Captured_image_%d.bmp",j);
-
-                //cap=cvQueryFrame(camera);
-                //mainloop(cap);
-                cvUndistort2(cap,undist_cap,cam_intrinsic_mat,cam_dist_vect);
-                sprintf(filename,"Captured_patterns/Coded_patterns/Binary_coded/Horizontal/Undistorted/Captured_image_%d.bmp",j);
-                cvSaveImage(filename,undist_cap);
-
-                // }
-
-
-                //   else
-                //     capture_next=false;
-                // }
-
-                //capture_next=false;
-                printf("\nCaptured %d of %d frame!!\n",j+1,number_of_patterns_binary_horizontal);
-                cvReleaseImage(&cap);
-            }
-
-        }
-
-    */
 
     /// Project & capture gray coded patterns...
     if(pattern_type==0)
@@ -370,11 +264,11 @@ void project_pattern(int pattern_type)
 
 
 
-/// EXTERNAL INTERFACE
-void projectAndCapturePatterns(int pattern_type)
+
+void projectAndCapturePatterns()
 {
-    read_pattern_images(pattern_type);
-    project_pattern(pattern_type);
+    initialize();	    
+    projectPattern();
 
     return;
 }
