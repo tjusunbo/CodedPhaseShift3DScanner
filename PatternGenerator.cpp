@@ -3,9 +3,6 @@
 using namespace cv;
 using namespace std;
 
-vector<IplImage*> projectedFringePatternsVertical;
-vector<IplImage*> projectedFringePatternsHorizontal;
-
 extern string configFileName;
 
 void PatternGenenerator::initialize()
@@ -20,8 +17,8 @@ void PatternGenenerator::initialize()
 
     	for (unsigned int fringePatternId = 0; fringePatternId < nFringePatterns; fringePatternId++)
     	{
-        	projectedFringePatternsVertical.push_back(cvCreateImage(cvSize(projectorImageWidth, projectorImageHeight), IPL_DEPTH_8U, 1));
-        	projectedFringePatternsHorizontal.push_back(cvCreateImage(cvSize(projectorImageWidth, projectorImageHeight), IPL_DEPTH_8U, 1));
+        	generatedFringePatternsVertical.push_back(cvCreateImage(cvSize(projectorImageWidth, projectorImageHeight), IPL_DEPTH_8U, 1));
+        	generatedFringePatternsHorizontal.push_back(cvCreateImage(cvSize(projectorImageWidth, projectorImageHeight), IPL_DEPTH_8U, 1));
     	}
    
    	nGrayCodesVertical = (int)ceil((float)projectorImageWidth / (float)fringeWidthVertical);
@@ -32,14 +29,14 @@ void PatternGenenerator::initialize()
 
    	for (unsigned int verticalGrayCodedPatternId = 0; verticalGrayCodedPatternId < nGrayCodesVertical + 1; verticalGrayCodedPatternId++)
     	{ 
-               	projectedGrayCodedPatternsVertical.push_back(cvCreateImage(cvSize(projectorImageWidth,projectorImageHeight),IPL_DEPTH_8U,1));
-        	projectedInverseGrayCodedPatternsVertical.push_back(cvCreateImage(cvSize(projectorImageWidth,projectorImageHeight),IPL_DEPTH_8U,1));
+               	generatedGrayCodedPatternsVertical.push_back(cvCreateImage(cvSize(projectorImageWidth,projectorImageHeight),IPL_DEPTH_8U,1));
+        	generatedInverseGrayCodedPatternsVertical.push_back(cvCreateImage(cvSize(projectorImageWidth,projectorImageHeight),IPL_DEPTH_8U,1));
     	}
 
     	for (unsigned int horizontalGrayCodedPatternId = 0; horizontalGrayCodedPatternId < nGrayCodesHorizontal + 1; horizontalGrayCodedPatternId++)
     	{
-       	        projectedGrayCodedPatternsHorizontal.push_back(cvCreateImage(cvSize(projectorImageWidth,projectorImageHeight),IPL_DEPTH_8U,1));
-        	projectedInverseGrayCodedPatternsHorizontal.push_back(cvCreateImage(cvSize(projectorImageWidth,projectorImageHeight),IPL_DEPTH_8U,1));
+       	        generatedGrayCodedPatternsHorizontal.push_back(cvCreateImage(cvSize(projectorImageWidth,projectorImageHeight),IPL_DEPTH_8U,1));
+        	generatedInverseGrayCodedPatternsHorizontal.push_back(cvCreateImage(cvSize(projectorImageWidth,projectorImageHeight),IPL_DEPTH_8U,1));
     	}
 
     	return;
@@ -61,7 +58,7 @@ void PatternGenenerator::generateFringePatterns()
             		for (unsigned int col = 0; col < projectorImageWidth; col++)
             		{
                 		t = 127.0f + 128.0f * cosf(((float)col / (float)fringeWidthVertical) * 2.0 * Pi - Pi - ((Pi) / 2.0) + (Pi / 2.0) * (float)patternId);
-                		projectedFringePatternsVertical[patternId]->imageData[row * projectedFringePatternsVertical[patternId]->widthStep + col] = (unsigned char)t;
+                		generatedFringePatternsVertical[patternId]->imageData[row * generatedFringePatternsVertical[patternId]->widthStep + col] = (unsigned char)t;
             		}
 
 
@@ -71,7 +68,7 @@ void PatternGenenerator::generateFringePatterns()
             		for(unsigned int row = 0; row < projectorImageHeight; row++)
             		{
                 		t = 127.0f + 128.0f * cosf(((float)row / (float)fringeWidthHorizontal) * 2.0 * Pi - Pi - ((Pi) / 2.0) + (Pi / 2.0) * (float)patternId);
-                		projectedFringePatternsHorizontal[patternId]->imageData[row * projectedFringePatternsHorizontal[patternId]->widthStep + col] = (unsigned char)t;
+                		generatedFringePatternsHorizontal[patternId]->imageData[row * generatedFringePatternsHorizontal[patternId]->widthStep + col] = (unsigned char)t;
             		}
 
     return;
@@ -128,7 +125,7 @@ void PatternGenenerator::generateGrayCodedPatterns()
             		for (unsigned int c = 0; c < projectorImageWidth; c += fringeWidthVertical)
             		{
                 		for (unsigned int offset = 0; (offset < fringeWidthVertical) && ((c + offset) < projectorImageWidth); offset++)
-                			projectedGrayCodedPatternsVertical[n]->imageData[r * projectedGrayCodedPatternsVertical[n]->widthStep + (c + offset)] = G[0][codeNumber][n] * 255;
+                			generatedGrayCodedPatternsVertical[n]->imageData[r * generatedGrayCodedPatternsVertical[n]->widthStep + (c + offset)] = G[0][codeNumber][n] * 255;
                 
                 	codeNumber++;
             		}
@@ -180,7 +177,7 @@ void PatternGenenerator::generateGrayCodedPatterns()
 		        for (unsigned int r = 0; r < projectorImageHeight; r += fringeWidthHorizontal)
             		{
                 		for (unsigned int offset = 0; (offset < fringeWidthHorizontal) && ((r + offset) < projectorImageHeight); offset++)
-                    			projectedGrayCodedPatternsHorizontal[n]->imageData[(r+offset) * projectedGrayCodedPatternsHorizontal[n]->widthStep+c] = G[0][codeNumber][n] * 255;
+                    			generatedGrayCodedPatternsHorizontal[n]->imageData[(r+offset) * generatedGrayCodedPatternsHorizontal[n]->widthStep+c] = G[0][codeNumber][n] * 255;
 
                 		codeNumber++;
             		}
@@ -200,13 +197,13 @@ void PatternGenenerator::generateInverseGrayCodedPatterns()
     	for (unsigned int i = 0; i < nGrayCodedPatternsVertical; i++)
       		for (unsigned int r = 0; r < projectorImageHeight; r++)
 		        for (unsigned int c = 0; c < projectorImageWidth; c++)
-				projectedInverseGrayCodedPatternsVertical[i]->imageData[r * projectedInverseGrayCodedPatternsVertical[i]->widthStep + c] = 255 - (unsigned char)(projectedInverseGrayCodedPatternsVertical[i]->imageData[r * projectedInverseGrayCodedPatternsVertical[i]->widthStep + c]);
+				generatedInverseGrayCodedPatternsVertical[i]->imageData[r * generatedInverseGrayCodedPatternsVertical[i]->widthStep + c] = 255 - (unsigned char)(generatedInverseGrayCodedPatternsVertical[i]->imageData[r * generatedInverseGrayCodedPatternsVertical[i]->widthStep + c]);
 
 	/// Horizontal
    	for (unsigned int i = 0; i < nGrayCodedPatternsHorizontal; i++)
       		for (unsigned int r = 0; r < projectorImageHeight; r++)
         		for (unsigned c = 0; c < projectorImageWidth; c++)
-           			projectedInverseGrayCodedPatternsHorizontal[i]->imageData[r * projectedInverseGrayCodedPatternsHorizontal[i]->widthStep + c] = 255 - (unsigned char)(projectedInverseGrayCodedPatternsHorizontal[i]->imageData[r * projectedInverseGrayCodedPatternsHorizontal[i]->widthStep + c]);
+           			generatedInverseGrayCodedPatternsHorizontal[i]->imageData[r * generatedInverseGrayCodedPatternsHorizontal[i]->widthStep + c] = 255 - (unsigned char)(generatedInverseGrayCodedPatternsHorizontal[i]->imageData[r * generatedInverseGrayCodedPatternsHorizontal[i]->widthStep + c]);
 
 
     return;
@@ -227,9 +224,9 @@ void PatternGenenerator::savePatternImages()
     	for (unsigned int i = 0; i < nFringePatterns; i++)
     	{
 		outputDir << rootOutputDir << "/FringePatterns/Vertical/Pattern" << i << ".bmp";
-        	imwrite(outputDir, projectedFringePatternsVertical[i]);
+        	imwrite(outputDir, generatedFringePatternsVertical[i]);
 		outputDir << rootOutputDir << "/Fringe_patterns/Horizontal/Pattern" << i << ".bmp";
-        	imwrite(outputDir, projectedFringePatternsHorizontal[j]);
+        	imwrite(outputDir, generatedFringePatternsHorizontal[j]);
 	}
     	
   	// Gray coded patterns
@@ -237,20 +234,20 @@ void PatternGenenerator::savePatternImages()
     	for (unsigned int j = 0; j < nGrayCodedPatternsVertical + 1; j++)
     	{
         	outputDir << rootOutputDir << "/CodedPatterns/GrayCoded/Vertical/Pattern" << j << ".bmp";
-        	imwrite(outputDir, projectedGrayCodedPatternsVertical[j]);
+        	imwrite(outputDir, generatedGrayCodedPatternsVertical[j]);
        	
         	outputDir << rootOutputDir << "/CodedPatterns/GrayCoded/Vertical/InversePattern" << j << ".bmp";
-        	imwrite(outputDir, projectedInverseGrayCodedPatternsVertical[j]);
+        	imwrite(outputDir, generatedInverseGrayCodedPatternsVertical[j]);
     	}
 
     
     	for (unsigned int j = 0; j < nGrayCodedPatternsHorizontal + 1; j++)
     	{
        		outputDir << rootOutputDir << "/CodedPatterns/GrayCoded/Horizontal/Pattern" << j << ".bmp";
-        	imwrite(outputDir, projectedGrayCodedPatternsHorizontal[j]);
+        	imwrite(outputDir, generatedGrayCodedPatternsHorizontal[j]);
        	
         	outputDir << rootOutputDir << "/CodedPatterns/GrayCoded/Horizontal/InversePattern" << j << ".bmp";
-        	imwrite(outputDir, projectedInverseGrayCodedPatternsHorizontal[j]);
+        	imwrite(outputDir, generatedInverseGrayCodedPatternsHorizontal[j]);
     	}
 
     	return;

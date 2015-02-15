@@ -25,6 +25,11 @@ class PatternGenerator
 		unsigned int nGrayCodesHorizontal;
 		unsigned int fringeWidthVertical;
 		unsigned int fringeWidthHorizontal;	
-		
+		vector<IplImage*> generatedFringePatternsVertical;
+		vector<IplImage*> generatedFringePatternsHorizontal;
+		vector<IplImage*> generatedGrayCodedPatternsVertical;	
+		vector<IplImage*> generatedGrayCodedPatternsHorizontal;
+		vector<IplImage*> generatedInverseGrayCodedPatternsVertical;
+		vector<IplImage*> generatedInverseGrayCodedPatternsHorizontal;
 		initialize();
 };
