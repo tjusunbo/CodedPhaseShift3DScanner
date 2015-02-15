@@ -3,7 +3,7 @@
  */
 #include "PhaseShiftSturcturedLight3DScanner.h"
 
-
+string configFileName = "scannerConfig.xml";
 
 int main()
 {
