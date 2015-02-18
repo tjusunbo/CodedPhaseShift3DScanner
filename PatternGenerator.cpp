@@ -214,7 +214,7 @@ void PatternGenenerator::generateInverseGrayCodedPatterns()
 //Following function saves the generated patterns.
 void PatternGenenerator::savePatternImages()
 {
-        ostringstream outputDir;
+        ostringstream fileLocation;
 	string rootOutputDir;
 
 	configFile["Output directory"] >> rootOutputDir;
@@ -223,31 +223,31 @@ void PatternGenenerator::savePatternImages()
 	
     	for (unsigned int i = 0; i < nFringePatterns; i++)
     	{
-		outputDir << rootOutputDir << "/FringePatterns/Vertical/Pattern" << i << ".bmp";
-        	imwrite(outputDir, generatedFringePatternsVertical[i]);
-		outputDir << rootOutputDir << "/Fringe_patterns/Horizontal/Pattern" << i << ".bmp";
-        	imwrite(outputDir, generatedFringePatternsHorizontal[j]);
+		fileLocation << rootOutputDir << "/FringePatterns/Vertical/Pattern" << i << ".bmp";
+        	imwrite(fileLocation, generatedFringePatternsVertical[i]);
+		fileLocation << rootOutputDir << "/Fringe_patterns/Horizontal/Pattern" << i << ".bmp";
+        	imwrite(fileLocation, generatedFringePatternsHorizontal[j]);
 	}
     	
   	// Gray coded patterns
     
     	for (unsigned int j = 0; j < nGrayCodedPatternsVertical + 1; j++)
     	{
-        	outputDir << rootOutputDir << "/CodedPatterns/GrayCoded/Vertical/Pattern" << j << ".bmp";
-        	imwrite(outputDir, generatedGrayCodedPatternsVertical[j]);
+        	fileLocation << rootOutputDir << "/CodedPatterns/GrayCoded/Vertical/Pattern" << j << ".bmp";
+        	imwrite(fileLocation, generatedGrayCodedPatternsVertical[j]);
        	
-        	outputDir << rootOutputDir << "/CodedPatterns/GrayCoded/Vertical/InversePattern" << j << ".bmp";
-        	imwrite(outputDir, generatedInverseGrayCodedPatternsVertical[j]);
+        	fileLocation << rootOutputDir << "/CodedPatterns/GrayCoded/Vertical/InversePattern" << j << ".bmp";
+        	imwrite(fileLocation, generatedInverseGrayCodedPatternsVertical[j]);
     	}
 
     
     	for (unsigned int j = 0; j < nGrayCodedPatternsHorizontal + 1; j++)
     	{
-       		outputDir << rootOutputDir << "/CodedPatterns/GrayCoded/Horizontal/Pattern" << j << ".bmp";
-        	imwrite(outputDir, generatedGrayCodedPatternsHorizontal[j]);
+       		fileLocation << rootOutputDir << "/CodedPatterns/GrayCoded/Horizontal/Pattern" << j << ".bmp";
+        	imwrite(fileLocation, generatedGrayCodedPatternsHorizontal[j]);
        	
-        	outputDir << rootOutputDir << "/CodedPatterns/GrayCoded/Horizontal/InversePattern" << j << ".bmp";
-        	imwrite(outputDir, generatedInverseGrayCodedPatternsHorizontal[j]);
+        	fileLocation << rootOutputDir << "/CodedPatterns/GrayCoded/Horizontal/InversePattern" << j << ".bmp";
+        	imwrite(fileLocation, generatedInverseGrayCodedPatternsHorizontal[j]);
     	}
 
     	return;
