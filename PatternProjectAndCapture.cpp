@@ -4,22 +4,14 @@
 void initialize()
 {
 
-    projectedFringePatternsVertical = new IplImage * [nFringePatterns];
-
-//Vertical.
-    if(pattern_type==0)
-    {
-        projected_image_set_binary=new IplImage*[number_of_patterns_binary_vertical+1];
-        projected_image_set_gray=new IplImage*[number_of_patterns_binary_vertical+1];
-        projected_image_set_gray_inverse=new IplImage*[number_of_patterns_binary_vertical+1];
-
-        // Vertical fringe patterns...
-        for(int i=0; i<number_of_patterns_fringe; i++)
+	 
+	// Vertical fringe patterns...
+        for(unsigned int i = 0; i < nFringePatterns; i++)
         {
             sprintf(filename,"Generated_patterns/Fringe_patterns/Vertical/Pattern_%d.bmp",i);
             projected_image_set_fringe[i]=cvLoadImage(filename,CV_LOAD_IMAGE_GRAYSCALE);
         }
-
+/*
         //Vertical binary coded patterns...
         for(int k=0; k<number_of_patterns_binary_vertical+1; k++)
         {
@@ -88,7 +80,7 @@ void initialize()
 
 
 //This function will project the pattern using projector.
-void project_pattern(int pattern_type)
+void projectAndCapture()
 {
 
     char pattern_name[15];
@@ -263,12 +255,12 @@ void project_pattern(int pattern_type)
 }
 
 
-
+*/
 
 void projectAndCapturePatterns()
 {
     initialize();	    
-    projectPattern();
+    projectAndCapture();
 
     return;
 }
