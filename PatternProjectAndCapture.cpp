@@ -1,83 +1,51 @@
 #include "PatternProjectAndCapture.h"
 
+extern string configFileName;
 
 void initialize()
 {
 
-	 
-	// Vertical fringe patterns...
-        for(unsigned int i = 0; i < nFringePatterns; i++)
+	FileStorage configFile(configFileName, FileStorage::READ);
+
+	configFile["Number of fringe patterns"] >> nFringePatterns;	
+	configFile["Number of vertical gray coded patterns"] >> nGrayCodedPatternsVertical;
+	configFile["Number of horizontal gray coded patterns"] >> nGrayCodedPatternsHorizontal;
+	string rootOutputDirectory, fileLocation;
+	configFile["Output directory"] >> rootOutputDirectory;
+
+	for(unsigned int i = 0; i < nFringePatterns; i++)
         {
-            sprintf(filename,"Generated_patterns/Fringe_patterns/Vertical/Pattern_%d.bmp",i);
-            projected_image_set_fringe[i]=cvLoadImage(filename,CV_LOAD_IMAGE_GRAYSCALE);
-        }
-/*
-        //Vertical binary coded patterns...
-        for(int k=0; k<number_of_patterns_binary_vertical+1; k++)
+        	fileLocation << rootOutputDir << "/FringePatterns/Vertical/Pattern" << i << ".bmp";
+        	projectedFringePatternsVertical[i] = imread(fileLocation, CV_LOAD_IMAGE_GRAYSCALE);
+       		
+		fileLocation << rootOutputDir << "/FringePatterns/Horizontal/Pattern" << i << ".bmp";
+        	projectedFringePatternsHorizontal[i] = imread(fileLocation, CV_LOAD_IMAGE_GRAYSCALE);
+
+       	}
+        
+        for(unsigned int j = 0; j < nGrayCodedPatternsVertical + 1; j++)
         {
+		fileLocation << rootOutputDir << "/CodedPatterns/GrayCoded/Vertical/Pattern" << j << ".bmp";
+        	projectedGrayCodedPatternsVertical[j] = imread(fileLocation, CV_LOAD_IMAGE_GRAYSCALE);
 
-            sprintf(filename,"Generated_patterns/Coded_patterns/Binary_coded/Vertical/Pattern_%d.bmp",k);
-            projected_image_set_binary[k]=cvLoadImage(filename,CV_LOAD_IMAGE_GRAYSCALE);
-        }
-
-        //Vertical gray coded patterns...
-        for(int k=0; k<number_of_patterns_binary_vertical+1; k++)
-        {
-
-            sprintf(filename,"Generated_patterns/Coded_patterns/Gray_coded/Vertical/Pattern_%d.bmp",k);
-            projected_image_set_gray[k]=cvLoadImage(filename,CV_LOAD_IMAGE_GRAYSCALE);
-
-            sprintf(filename,"Generated_patterns/Coded_patterns/Gray_coded/Vertical/inverse_Pattern_%d.bmp",k);
-            projected_image_set_gray_inverse[k]=cvLoadImage(filename,CV_LOAD_IMAGE_GRAYSCALE);
-
-
-
+	        fileLocation << rootOutputDir << "/CodedPatterns/GrayCoded/Vertical/InversePattern" << j << ".bmp";
+        	projectedInverseGrayCodedPatternVertical[j] = imread(fileLocation, CV_LOAD_IMAGE_GRAYSCALE);
         }
 
-    }
-
-
-//Horizontal.
-    if(pattern_type==1)
-    {
-        projected_image_set_binary=new IplImage*[number_of_patterns_binary_horizontal+1];
-        projected_image_set_gray=new IplImage*[number_of_patterns_binary_horizontal+1];
-
-
-        // Horizontal fringe patterns...
-        for(int j=0; j<number_of_patterns_fringe; j++)
+        for(unsigned int k = 0; k < nGrayCodedPatternsHorizontal + 1; k++)
         {
+		fileLocation << rootOutputDir << "/CodedPatterns/GrayCoded/Horizontal/Pattern" << k << ".bmp";
+        	projectedGrayCodedPatternsHorizontal[k] = imread(fileLocation, CV_LOAD_IMAGE_GRAYSCALE);
 
-            sprintf(filename,"Generated_patterns/Fringe_patterns/Horizontal/Pattern_%d.bmp",j);
-            projected_image_set_fringe[j]=cvLoadImage(filename,CV_LOAD_IMAGE_GRAYSCALE);
+	        fileLocation << rootOutputDir << "/CodedPatterns/GrayCoded/Horizontal/InversePattern" << k << ".bmp";
+        	projectedInverseGrayCodedPatternHorizontal[k] = imread(fileLocation, CV_LOAD_IMAGE_GRAYSCALE);
         }
 
-        // Horizontal binary coded patterns...
-        for(int l=0; l<number_of_patterns_binary_horizontal+1; l++)
-        {
-
-            sprintf(filename,"Generated_patterns/Coded_patterns/Binary_coded/Horizontal/Pattern_%d.bmp",l);
-            projected_image_set_binary[l]=cvLoadImage(filename,CV_LOAD_IMAGE_GRAYSCALE);
-
-        }
-
-        // Horizontal gray coded patterns...
-        for(int l=0; l<number_of_patterns_binary_horizontal+1; l++)
-        {
-            sprintf(filename,"Generated_patterns/Coded_patterns/Gray_coded/Horizontal/Pattern_%d.bmp",l);
-            projected_image_set_gray[l]=cvLoadImage(filename,CV_LOAD_IMAGE_GRAYSCALE);
-
-            sprintf(filename,"Generated_patterns/Coded_patterns/Gray_coded/Horizontal/inverse_Pattern_%d.bmp",l);
-            projected_image_set_gray_inverse[l]=cvLoadImage(filename,CV_LOAD_IMAGE_GRAYSCALE);
-        }
-
-    }
-
-
-    return;
+      
+	return;
 }
 
-
+/*
 
 //This function will project the pattern using projector.
 void projectAndCapture()
