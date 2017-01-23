@@ -1,18 +1,16 @@
 #include "PatternGenerator.h" 
 
-extern string configFileName;
+extern size_t nFringePatterns;
+extern size_t nGrayCodesVertical;
+extern size_t nGrayCodesHorizontal;
+extern float generatedFringePatternsWidthVertical;
+extern float generatedFringePatternsWidthHorizontal;
+
+extern float generatedGrayCodedPatternsWidthVertical;
 
 void PatternGenenerator::initialize()
 {
-	FileStorage configFile(configFileName, FileStorage::READ);
-
-	configFile["Fringe width(vertical)"] >> fringeWidthVertical;
-	configFile["Fringe width(horizontal)"] >> fringeWidthHorizontal;
-  	configFile["Number of fringe patterns"] >> nFringePatterns;
-
-	configFile.release();
-
-    	for (unsigned int fringePatternId = 0; fringePatternId < nFringePatterns; fringePatternId++)
+	for (unsigned int fringePatternId = 0; fringePatternId < nFringePatterns; fringePatternId++)
     	{
         	generatedFringePatternsVertical.push_back(cvCreateImage(cvSize(projectorImageWidth, projectorImageHeight), IPL_DEPTH_8U, 1));
         	generatedFringePatternsHorizontal.push_back(cvCreateImage(cvSize(projectorImageWidth, projectorImageHeight), IPL_DEPTH_8U, 1));

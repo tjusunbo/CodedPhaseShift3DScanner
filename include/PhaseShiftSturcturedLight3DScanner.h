@@ -29,11 +29,11 @@ class PhaseShiftStructuredLight3DScanner
 		float cameraImageHeight;
 		float projectorImageWidth;
 		float projectorImageHeight;
-
 		
+		string *configFileName;
 
 		void scanObject();
-		PhaseShiftStructuredLight3DScanner() // default constructure
+		PhaseShiftStructuredLight3DScanner(string * configFile) // default constructure
 		{
 			patternGenerator = NULL;
 			patternProjectAndCapture = NULL;
@@ -43,6 +43,7 @@ class PhaseShiftStructuredLight3DScanner
 			correspondenceEstimator = NULL;
 			triangulator = NULL;
 			pointCloudExporter = NULL;
+			configFileName = configFile;
 		}
 		void allocatePipelineMemory()
 		{
@@ -73,13 +74,13 @@ class PhaseShiftStructuredLight3DScanner
 
 	private:
 
-		PatternGenerator patternGenerator;
-		PatternProjectAndCapture patternProjectAndCapture;
-		SystemCalibrator systemCalibrator;
-		PhaseWrapper phaseWrapper;
-		PhaseUnwrapper phaseUnwrapper;
-		CorrespondenceEstimator correspondenceEstimator;
-		Triangulator triangulator;
-		PointCloudExporter pointCloudExporter;
+		PatternGenerator* patternGenerator;
+		PatternProjectAndCapture* patternProjectAndCapture;
+		SystemCalibrator* systemCalibrator;
+		PhaseWrapper* phaseWrapper;
+		PhaseUnwrapper* phaseUnwrapper;
+		CorrespondenceEstimator* correspondenceEstimator;
+		Triangulator* triangulator;
+		PointCloudExporter* pointCloudExporter;
 };
 
