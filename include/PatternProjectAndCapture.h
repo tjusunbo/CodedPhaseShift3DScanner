@@ -3,7 +3,7 @@ class PatternProjectAndCapture
 	public:
 		projectAndCapture();
 	private:
-		initialize();
+		void initialize();
 		vector<IplImage*> projectedFringePatternsVertical;
 		vector<IplImage*> projectedFringePatternsHorizontal;
 		vector<IplImage*> projectedGrayCodesVertical;

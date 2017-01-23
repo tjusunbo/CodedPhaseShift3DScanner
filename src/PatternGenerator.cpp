@@ -1,8 +1,5 @@
 #include "PatternGenerator.h" 
 
-using namespace cv;
-using namespace std;
-
 extern string configFileName;
 
 void PatternGenenerator::initialize()

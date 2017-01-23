@@ -2,11 +2,17 @@
 #include "PhaseShiftSturcturedLight3DScanner.h"
 
 
-void PhaseShiftStructuredLight3DScaner::scanObject()
+
+void PhaseShiftStructuredLight3DScaner::scanObject(string *configFileName)
 {
 
+	allocatePipelineMemory();
+	
+	// read config file and initialize a global set of variables.
+	initializeGlobalVariables();
+
 	systemCalibrator.calibrate();
-	patternGenerator.generate();
+	patternGenerator.generate(configFileName);
 	patternProjectAndCapture.projectAndCapture();
 	phaseWrapper.compute();
 	phaseUnwrapper.compute();

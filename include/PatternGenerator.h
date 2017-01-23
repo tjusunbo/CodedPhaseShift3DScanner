@@ -1,23 +1,11 @@
-// File inclusions
-#include <vector>
-#include <string>
-#include <sstream>
-#include <opencv2/highgui.hpp>
-#include <opencv2/core/core.hpp>
-
-// Constants
-#define Pi (22.0 / 7.0)
-
-
-
 class PatternGenerator
 {
 
 	public:
-		generatePatterns();
-
+		generate();
 
 	private:
+		void initialize();
 		unsigned int nFringePatterns;
 		unsigned int nGrayCodedPatternsVertical;
 		unsigned int nGrayCodedPatternsHorizontal;
@@ -31,5 +19,4 @@ class PatternGenerator
 		vector<IplImage*> generatedGrayCodedPatternsHorizontal;
 		vector<IplImage*> generatedInverseGrayCodedPatternsVertical;
 		vector<IplImage*> generatedInverseGrayCodedPatternsHorizontal;
-		initialize();
 };
