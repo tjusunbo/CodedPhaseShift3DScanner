@@ -1,13 +1,13 @@
 #include "PatternGenerator.h" 
 
 extern size_t nFringePatterns;
-extern size_t nGrayCodesVertical;
-extern size_t nGrayCodesHorizontal;
-extern float generatedFringePatternsWidthVertical;
-extern float generatedFringePatternsWidthHorizontal;
+extern float cameraImageHeight;
+extern float cameraImageWidth;
+extern float projectorImageWidth;
+extern float projectorImageHeight;
+extern string* outputDir;
 
-extern float generatedGrayCodedPatternsWidthVertical;
-
+// allocates memory for fringe images.
 void PatternGenenerator::initialize()
 {
 	for (unsigned int fringePatternId = 0; fringePatternId < nFringePatterns; fringePatternId++)
@@ -38,15 +38,13 @@ void PatternGenenerator::initialize()
 }
 
 
+// Generate fringe patterns
 //I1=Imod+Idc*(cos(phi-2pi/3))
 //I2=Imod+Idc*(cos(phi))
 //I3=Imod+Idc*(cos(phi+2pi/3))
-
 void PatternGenenerator::generateFringePatterns()
 {
-
 	float t = 0.0;
-
 	// vertical patterns	
 	for (unsigned int patternId = 0; patternId < nFringePatterns; patternId++)
         	for (unsigned int row = 0; row < projectorImageHeight; row++)
@@ -55,7 +53,6 @@ void PatternGenenerator::generateFringePatterns()
                 		t = 127.0f + 128.0f * cosf(((float)col / (float)fringeWidthVertical) * 2.0 * Pi - Pi - ((Pi) / 2.0) + (Pi / 2.0) * (float)patternId);
                 		generatedFringePatternsVertical[patternId]->imageData[row * generatedFringePatternsVertical[patternId]->widthStep + col] = (unsigned char)t;
             		}
-
 
 	// horizontal patterns
     	for (unsigned int patternId = 0; patternId < nFringePatterns; patternId++)
@@ -70,14 +67,13 @@ void PatternGenenerator::generateFringePatterns()
 }
 
 
-
+// Generate gray coded patterns
 void PatternGenenerator::generateGrayCodedPatterns()
 {
 
 	/// Convert binary to gray
     	bool **B[1];
     	bool **G[1];
-
 
     	for (unsigned int n = 0; n < 1; n++)
     	{
@@ -184,7 +180,6 @@ void PatternGenenerator::generateGrayCodedPatterns()
 }
 
 
-
 void PatternGenenerator::generateInverseGrayCodedPatterns()
 {
 
@@ -210,38 +205,33 @@ void PatternGenenerator::generateInverseGrayCodedPatterns()
 void PatternGenenerator::savePatternImages()
 {
         ostringstream fileLocation;
-	string rootOutputDir;
-
-	configFile["Output directory"] >> rootOutputDir;
 
 	// Fringe patterns
-	
     	for (unsigned int i = 0; i < nFringePatterns; i++)
     	{
-		fileLocation << rootOutputDir << "/FringePatterns/Vertical/Pattern" << i << ".bmp";
+		fileLocation << outputDir << "/FringePatterns/Vertical/Pattern" << i << ".bmp";
         	imwrite(fileLocation, generatedFringePatternsVertical[i]);
-		fileLocation << rootOutputDir << "/Fringe_patterns/Horizontal/Pattern" << i << ".bmp";
+		fileLocation << outputDir << "/Fringe_patterns/Horizontal/Pattern" << i << ".bmp";
         	imwrite(fileLocation, generatedFringePatternsHorizontal[j]);
 	}
     	
   	// Gray coded patterns
-    
     	for (unsigned int j = 0; j < nGrayCodedPatternsVertical + 1; j++)
     	{
-        	fileLocation << rootOutputDir << "/CodedPatterns/GrayCoded/Vertical/Pattern" << j << ".bmp";
+        	fileLocation << outputDir << "/CodedPatterns/GrayCoded/Vertical/Pattern" << j << ".bmp";
         	imwrite(fileLocation, generatedGrayCodedPatternsVertical[j]);
        	
-        	fileLocation << rootOutputDir << "/CodedPatterns/GrayCoded/Vertical/InversePattern" << j << ".bmp";
+        	fileLocation << outputDir << "/CodedPatterns/GrayCoded/Vertical/InversePattern" << j << ".bmp";
         	imwrite(fileLocation, generatedInverseGrayCodedPatternsVertical[j]);
     	}
 
     
     	for (unsigned int j = 0; j < nGrayCodedPatternsHorizontal + 1; j++)
     	{
-       		fileLocation << rootOutputDir << "/CodedPatterns/GrayCoded/Horizontal/Pattern" << j << ".bmp";
+       		fileLocation << outputDir << "/CodedPatterns/GrayCoded/Horizontal/Pattern" << j << ".bmp";
         	imwrite(fileLocation, generatedGrayCodedPatternsHorizontal[j]);
        	
-        	fileLocation << rootOutputDir << "/CodedPatterns/GrayCoded/Horizontal/InversePattern" << j << ".bmp";
+        	fileLocation << outputDir << "/CodedPatterns/GrayCoded/Horizontal/InversePattern" << j << ".bmp";
         	imwrite(fileLocation, generatedInverseGrayCodedPatternsHorizontal[j]);
     	}
 
@@ -249,10 +239,10 @@ void PatternGenenerator::savePatternImages()
 }
 
 
-void PatternGenenerator::generatePatterns()
+void PatternGenenerator::generate()
 {
 
-	initialize();
+	initialize(); 
 	generateFringePatterns();
 	generateGrayCodedPatterns();
 	generateInverseGrayCodedPatterns();
