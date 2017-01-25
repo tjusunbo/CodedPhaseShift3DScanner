@@ -39,7 +39,6 @@ void PatternProjectAndCapture::initialize()
 //This function will be used for projecting and capturing the patterns.
 void PatternProjectAndCapture::projectAndCapture()
 {
-
 	// initializes datastructures    
 	initialize();
 
@@ -68,17 +67,8 @@ void PatternProjectAndCapture::projectAndCapture()
 	        	cvShowImage("Projector_pattern",projected_image_set_fringe[i]);
 	        	cvCopyImage(temp_proj_pattern,projected_image_set_fringe[i]);//for next iteration.
 
-		        //cap=cvQueryFrame(camera);
-	        	//mainloop(cap);
-	        	preview_and_capture();
-		        //cvScale(cap, cap, 2.*(cam_gain/100.), 0);
-	        	//cvShowImage("Camera_view",cap);
-
-	        	//if(cvWaitKey(30)=='c')
-		        //{
-        			// capture_next=true;
-
-			if(pattern_type==0)//vertical.
+		        preview_and_capture();
+		       	if(pattern_type==0)//vertical.
 		        {
 		        	sprintf(filename,"Captured_patterns/Fringe_patterns/Vertical/Original/Captured_image_%d.bmp",i);			
 	                        cvUndistort2(cap,undist_cap,cam_intrinsic_mat,cam_dist_vect);
