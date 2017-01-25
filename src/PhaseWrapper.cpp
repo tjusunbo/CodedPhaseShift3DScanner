@@ -1,28 +1,4 @@
-//Steps:-
-//1.For each pixel in all 3 captured images:-
-//1.Compute the wrapped phase value and multiply it with 155 to map it to the gray-scale value.
-//Save the image.
-
-#include "/home/pranav/Desktop/PROJECT_GLOBAL/global_cv.h"
-////////////////////////////////////////////////////////////////////////////Global variables.
-extern int number_of_patterns_fringe;
-extern char filename[150];
-extern int pattern_type;
-extern float (*wrapped_phi_vertical)[Camera_imageheight];
-extern float (*wrapped_phi_horizontal)[Camera_imageheight];
-
-IplImage**gray_captured_images;
-IplImage*wrapped_phase_image;
-
-extern int (*valid_map_vertical)[Camera_imageheight];
-extern int (*valid_map_horizontal)[Camera_imageheight];
-
-int (*valid_map_local)[Camera_imageheight]; //will point to the valid map in current consideration.
-float (*wrapped_phi)[Camera_imageheight];
-
-//bool visited[Camera_imagewidth][Camera_imageheight];//It will show which pixels are already visited in region growing approach.
-
-extern int (*selected_region)[Camera_imageheight];
+#include "PhaseWrapper.h"
 
 
 //This function will read the captured images of projected pattern for wrapping.
@@ -51,9 +27,6 @@ void read_image(int pattern_type)
 
         cvSaveImage(filename,gray_captured_images[i]);
     }
-
-
-
     return;
 }
 
